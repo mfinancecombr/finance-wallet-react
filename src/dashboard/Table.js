@@ -19,8 +19,7 @@ import {
   Tooltip,
 } from "@material-ui/core";
 
-import { convertToBRLFloat } from "../convertToBRLFloat";
-import { convertToBRLMoney } from "../convertToBRLMoney";
+import { FloatRow, IntegerRow, MoneyRow } from "../components/Rows";
 
 const descendingComparator = (a, b, orderBy) => {
   if (b[orderBy] < a[orderBy]) {
@@ -119,40 +118,6 @@ const useStyles = makeStyles((theme) => ({
   },
   container: {},
 }));
-
-const GenericRow = ({ children, color, type }) => {
-  color = color ? color : parseFloat(children, 10) > 0 ? "green" : "red";
-  switch (type) {
-    case "money":
-      children = convertToBRLMoney(children);
-      break;
-    case "float":
-      children = convertToBRLFloat(children);
-      break;
-    default:
-  }
-  return (
-    <TableCell>
-      <span style={{ color: color, fontWeight: 700 }}>{children}</span>
-    </TableCell>
-  );
-};
-
-const IntegerRow = ({ children, color }) => (
-  <GenericRow color={color}>{children}</GenericRow>
-);
-
-const MoneyRow = ({ children, color }) => (
-  <GenericRow color={color} type="money">
-    {children}
-  </GenericRow>
-);
-
-const FloatRow = ({ children, color }) => (
-  <GenericRow color={color} tupe="float">
-    {children}
-  </GenericRow>
-);
 
 const EnhancedTable = ({ data, itemType, perPage }) => {
   const classes = useStyles();

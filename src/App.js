@@ -36,6 +36,7 @@ import PortfoliosEdit from "./portfolios/PortfoliosEdit";
 import Purchases from "./purchases/Purchases";
 import PurchasesAdd from "./purchases/PurchasesAdd";
 import PurchasesEdit from "./purchases/PurchasesEdit";
+import Reports from "./reports/Reports";
 import Sales from "./sales/Sales";
 import SalesAdd from "./sales/SalesAdd";
 import SalesEdit from "./sales/SalesEdit";
@@ -214,6 +215,9 @@ const App = () => {
               </Route>
               <Route exact path="/income-tax">
                 <IncomeTax />
+              </Route>
+              <Route exact path="/reports">
+                <Reports />
               </Route>
               <Route exact path="/">
                 <Dashboard />

@@ -58,12 +58,7 @@ export const mainListItems = (
       primary="Portfolios"
       to="/portfolios"
     />
-    <ListItem button>
-      <ListItemIcon>
-        <BarChartIcon />
-      </ListItemIcon>
-      <ListItemText primary="Reports" />
-    </ListItem>
+    <ListItemLink icon={<BarChartIcon />} primary="Reports" to="/reports" />
     <ListItemLink
       icon={<AttachMoneyIcon />}
       primary="Income tax"
