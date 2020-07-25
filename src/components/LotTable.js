@@ -45,64 +45,65 @@ const LotTable = ({ rows, type, handleDeleteItem }) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => {
-            // FIXME
-            const modalProps = {
-              context: row._id,
-              message: `Are you sure you want to delete "${row.symbol}"?`,
-              title: `Delete ${row.itemType}`,
-              onConfirm: (_, context) => {
-                handleDeleteItem(context);
-                setModalOptions({ isOpen: false });
-              },
-              onBackdropClick: () => setModalOptions({ isOpen: false }),
-              onCancel: () => setModalOptions({ isOpen: false }),
-            };
+          {rows &&
+            rows.map((row) => {
+              // FIXME
+              const modalProps = {
+                context: row._id,
+                message: `Are you sure you want to delete "${row.symbol}"?`,
+                title: `Delete ${row.itemType}`,
+                onConfirm: (_, context) => {
+                  handleDeleteItem(context);
+                  setModalOptions({ isOpen: false });
+                },
+                onBackdropClick: () => setModalOptions({ isOpen: false }),
+                onCancel: () => setModalOptions({ isOpen: false }),
+              };
 
-            const editLink = `/${row.itemType}/${type}/${row._id}/edit`;
+              const editLink = `/${row.itemType}/${type}/${row._id}/edit`;
 
-            return (
-              <TableRow key={row._id} hover>
-                <TableCellWithLink link={editLink}>
-                  <strong>{row.symbol}</strong>
-                </TableCellWithLink>
-                <TableCellWithLink link={editLink}>
-                  {row.shares}
-                </TableCellWithLink>
-                <TableCellWithLink link={editLink}>
-                  {convertToBRLMoney(row.price)}
-                </TableCellWithLink>
-                <TableCellWithLink link={editLink}>
-                  {convertToBRLMoney(row.commission)}
-                </TableCellWithLink>
-                <TableCellWithLink link={editLink}>
-                  {convertStringToDate(row.date)}
-                </TableCellWithLink>
-                <TableCellWithLink link={editLink}>
-                  {row.itemType}
-                </TableCellWithLink>
-                <TableCellWithLink link={editLink}>
-                  {row.portfolioId}
-                </TableCellWithLink>
-                <TableCellWithLink link={editLink}>
-                  {row.brokerId}
-                </TableCellWithLink>
-                <TableCellWithLink link={editLink}>
-                  {convertToBRLMoney(row.shares * row.price + row.commission)}
-                </TableCellWithLink>
-                <TableCell>
-                  <IconButton
-                    aria-label="delete"
-                    onClick={() =>
-                      setModalOptions({ isOpen: true, modalProps })
-                    }
-                  >
-                    <DeleteIcon />
-                  </IconButton>
-                </TableCell>
-              </TableRow>
-            );
-          })}
+              return (
+                <TableRow key={row._id} hover>
+                  <TableCellWithLink link={editLink}>
+                    <strong>{row.symbol}</strong>
+                  </TableCellWithLink>
+                  <TableCellWithLink link={editLink}>
+                    {row.shares}
+                  </TableCellWithLink>
+                  <TableCellWithLink link={editLink}>
+                    {convertToBRLMoney(row.price)}
+                  </TableCellWithLink>
+                  <TableCellWithLink link={editLink}>
+                    {convertToBRLMoney(row.commission)}
+                  </TableCellWithLink>
+                  <TableCellWithLink link={editLink}>
+                    {convertStringToDate(row.date)}
+                  </TableCellWithLink>
+                  <TableCellWithLink link={editLink}>
+                    {row.itemType}
+                  </TableCellWithLink>
+                  <TableCellWithLink link={editLink}>
+                    {row.portfolioId}
+                  </TableCellWithLink>
+                  <TableCellWithLink link={editLink}>
+                    {row.brokerId}
+                  </TableCellWithLink>
+                  <TableCellWithLink link={editLink}>
+                    {convertToBRLMoney(row.shares * row.price + row.commission)}
+                  </TableCellWithLink>
+                  <TableCell>
+                    <IconButton
+                      aria-label="delete"
+                      onClick={() =>
+                        setModalOptions({ isOpen: true, modalProps })
+                      }
+                    >
+                      <DeleteIcon />
+                    </IconButton>
+                  </TableCell>
+                </TableRow>
+              );
+            })}
         </TableBody>
       </Table>
     </TableContainer>

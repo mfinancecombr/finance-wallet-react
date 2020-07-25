@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
 const PurchasesAddButton = () => <AddButton href="/purchases/add" />;
 
 const Data = ({ rows, handleDeleteItem }) => {
-  if (rows.length === 0) {
+  if (!rows || rows.length === 0) {
     return <EmptyEntity name="purchases" />;
   }
   return (
@@ -61,7 +61,7 @@ const Purchases = () => {
   }, []);
 
   // FIXME
-  if (Object.keys(rows).length === 0 && rows.constructor === Object) {
+  if (rows && Object.keys(rows).length === 0 && rows.constructor === Object) {
     return <Loading />;
   }
 
