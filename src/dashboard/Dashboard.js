@@ -9,6 +9,7 @@ import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid, Paper } from "@material-ui/core";
 
+import Alert from "../components/Alert";
 import Chart from "./Chart";
 import conf from "../conf";
 import CurrentEquity from "./CurrentEquity";
@@ -17,6 +18,7 @@ import Loading from "../components/Loading";
 import MFinanceHttpClient from "../MFinanceHttpClient";
 import StocksSector from "./StocksSector";
 import WalletAllocation from "./WalletAllocation";
+import EmptyEntity from "../components/EmptyEntity";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -34,12 +36,25 @@ const Dashboard = () => {
   const classes = useStyles();
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
   const [rows, setData] = useState({});
+  const [error, setError] = useState({ hasError: false, message: "" });
   const fetchData = () => {
     // FIXME
-    const payload = { entity: "portfolios", id: "default" };
-    MFinanceHttpClient("GET_ONE", payload).then((data) => {
-      setData(data);
-    });
+    const portfolioID = "default";
+    const payload = { entity: "portfolios", id: portfolioID };
+    MFinanceHttpClient("GET_ONE", payload)
+      .then((data) => {
+        setData(data);
+      })
+      .catch((error) => {
+        if (error.response.status === 404) {
+          setError({
+            hasError: true,
+            message: `Portfolio '${portfolioID}' not found. Try to add it!`,
+          });
+        } else {
+          setError({ hasError: true, message: error.response.data });
+        }
+      });
   };
 
   useEffect(() => {
@@ -50,6 +65,15 @@ const Dashboard = () => {
     }, conf.walletRefreshInterval);
     return () => clearInterval(intervalId);
   }, []);
+
+  if (error.hasError) {
+    return (
+      <React.Fragment>
+        <Alert message={error.message} severity="error" />
+        <EmptyEntity name="portfolios" />
+      </React.Fragment>
+    );
+  }
 
   // FIXME
   if (Object.keys(rows).length === 0) {

@@ -20,10 +20,13 @@ import {
   Typography,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+
+import Alert from "./components/Alert";
+import EmptyEntity from "./components/EmptyEntity";
 import Loading from "./components/Loading";
 import MFinanceHttpClient from "./MFinanceHttpClient";
-import { convertToBRLMoney } from "./convertToBRLMoney";
 import { convertIdToTitle } from "./convertTypeIdToTitle";
+import { convertToBRLMoney } from "./convertToBRLMoney";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -129,6 +132,7 @@ const IncomeTax = () => {
   const currentDate = new Date();
   const currentYear = currentDate.getFullYear();
   const [year, setYear] = React.useState(currentYear - 1);
+  const [error, setError] = useState({ hasError: false, message: "" });
 
   const handleChange = (event) => {
     const year = event.target.value;
@@ -143,19 +147,40 @@ const IncomeTax = () => {
   // FIXME called twice on init
   const fetchPortfolio = (year) => {
     // FIXME
+    const portfolioID = "default";
     const payload = {
       entity: "portfolios",
-      id: "default",
+      id: portfolioID,
       query: { year: year },
     };
-    MFinanceHttpClient("GET_ONE", payload).then((data) => {
-      setPortfolio(data);
-    });
+    MFinanceHttpClient("GET_ONE", payload)
+      .then((data) => {
+        setPortfolio(data);
+      })
+      .catch((error) => {
+        if (error.response.status === 404) {
+          setError({
+            hasError: true,
+            message: `Portfolio '${portfolioID}' not found. Try to add it!`,
+          });
+        } else {
+          setError({ hasError: true, message: error.response.data });
+        }
+      });
   };
 
   useEffect(() => {
     fetchPortfolio(year);
   }, [year]);
+
+  if (error.hasError) {
+    return (
+      <React.Fragment>
+        <Alert message={error.message} severity="error" />
+        <EmptyEntity name="portfolios" />
+      </React.Fragment>
+    );
+  }
 
   // FIXME
   if (portfolio.constructor === Object && Object.keys(portfolio).length === 0) {
