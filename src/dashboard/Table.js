@@ -56,6 +56,7 @@ const headCells = [
   { id: "commission", numeric: true, label: "Commission" },
   { id: "averagePrice", numeric: true, label: "Avg Price" },
   { id: "gain", numeric: true, label: "Gain" },
+  { id: "overallReturn", numeric: true, label: "Overall Return %" },
   { id: "change", numeric: true, label: "Change %" },
   { id: "lastPrice", numeric: true, label: "Last Price" },
   { id: "closingPrice", numeric: true, label: "Closing Price" },
@@ -211,6 +212,7 @@ const EnhancedTable = ({ data, itemType, perPage }) => {
           <MoneyRow color="gray">{row.commission}</MoneyRow>
           <MoneyRow color="gray">{row.averagePrice}</MoneyRow>
           <MoneyRow>{row.gain}</MoneyRow>
+          <FloatRow>{row.overallReturn}</FloatRow>
           <FloatRow>{row.change}</FloatRow>
           <MoneyRow color="orange">{row.lastPrice}</MoneyRow>
           <MoneyRow color="blue">{row.closingPrice}</MoneyRow>
