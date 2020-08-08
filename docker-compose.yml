@@ -1,0 +1,27 @@
+version: "3"
+
+services:
+  mongodb:
+    image: mongo:4.4.0
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./db/mongodb:/var/lib/mongodb
+    restart: always
+    networks:
+      - mfinance
+
+  wallet-api:
+    image: mfinance/finance-wallet-api
+    environment:
+      - FINANCE_WALLETAPI_DEBUG=true
+      - FINANCE_WALLETAPI_MONGODB_ENDPOINT=mongodb://mongodb:27017
+    ports:
+      - "8889:8889"
+    depends_on:
+      - mongodb
+    networks:
+      - mfinance
+
+networks:
+  mfinance:

@@ -6,3 +6,6 @@ run:
 
 clean:
 	@find . -name "*.swp" -delete
+
+docker-run:
+	@docker-compose up

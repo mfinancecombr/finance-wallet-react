@@ -7,6 +7,7 @@
 - nodejs
 - yarn
 - [Finance Wallet API][finance-api]
+  - via docker compose: `make docker-run`
 
 ### Installing dependencies
 
