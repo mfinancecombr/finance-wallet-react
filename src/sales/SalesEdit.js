@@ -27,7 +27,7 @@ const SalesEdit = () => {
   const [values, setValues] = useState({});
   const { id, itemType } = useParams();
   const fetchData = () => {
-    MFinanceHttpClient("GET_ONE", { entity: `${itemType}/sales`, id: id })
+    MFinanceHttpClient("GET_ONE", { entity: `${itemType}/operations`, id: id })
       .then((data) => {
         setValues(data);
       })
@@ -36,7 +36,7 @@ const SalesEdit = () => {
   const handleUpdateItem = (event) => {
     event.preventDefault();
     MFinanceHttpClient("UPDATE", {
-      entity: `${itemType}/sales`,
+      entity: `${itemType}/operations`,
       formData: values,
     })
       .then((data) => {

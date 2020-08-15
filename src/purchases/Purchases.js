@@ -49,7 +49,7 @@ const Purchases = () => {
     });
   };
   const handleDeleteItem = (id) => {
-    MFinanceHttpClient("DELETE", { entity: "purchases", id: id }).then(
+    MFinanceHttpClient("DELETE", { entity: "operations", id: id }).then(
       (data) => {
         fetchData();
       }

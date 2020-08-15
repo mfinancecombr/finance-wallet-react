@@ -32,6 +32,7 @@ const SalesAdd = () => {
     price: "",
     shares: "",
     symbol: "",
+    type: "sale",
   });
   const handleChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
@@ -40,7 +41,7 @@ const SalesAdd = () => {
     event.preventDefault();
     const itemType = values["itemType"];
     MFinanceHttpClient("CREATE", {
-      entity: `${itemType}/sales`,
+      entity: `${itemType}/operations`,
       formData: values,
     })
       .then(() => {

@@ -47,7 +47,7 @@ const Sales = () => {
       .catch((err) => console.error(err));
   };
   const handleDeleteItem = (id) => {
-    MFinanceHttpClient("DELETE", { entity: "sales", id: id })
+    MFinanceHttpClient("DELETE", { entity: "operations", id: id })
       .then((data) => {
         fetchData();
       })
