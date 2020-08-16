@@ -19,8 +19,8 @@ const useStyles = makeStyles({
   }),
 });
 
-const CurrentEquity = ({ gain, overallReturn, costBasics }) => {
-  const currentEquity = convertToBRLMoney(costBasics + gain);
+const CurrentEquity = ({ gain, overallReturn, costBasis }) => {
+  const currentEquity = convertToBRLMoney(costBasis + gain);
   const classes = useStyles({ overallReturn });
   return (
     <React.Fragment>

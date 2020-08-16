@@ -93,7 +93,7 @@ const Dashboard = () => {
       <Grid item xs={12} md={4} lg={3}>
         <Paper className={fixedHeightPaper}>
           <CurrentEquity
-            costBasics={rows.costBasics}
+            costBasis={rows.costBasis}
             gain={rows.gain}
             overallReturn={rows.overallReturn}
           />

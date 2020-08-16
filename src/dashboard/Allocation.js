@@ -14,7 +14,7 @@ const Allocation = ({ data, itemType, height, isMoney }) => {
   const items = [];
   Object.entries(data.items).forEach(([key, value]) => {
     if (itemType === value.itemType) {
-      const total = value.costBasics + value.gain;
+      const total = value.costBasis + value.gain;
       items.push({ name: key, value: total });
     }
   });

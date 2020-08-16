@@ -52,7 +52,7 @@ const stableSort = (array, comparator) => {
 const headCells = [
   { id: "symbol", numeric: false, label: "Symbol" },
   { id: "shares", numeric: true, label: "Shares" },
-  { id: "costBasics", numeric: true, label: "Cost Basics" },
+  { id: "costBasis", numeric: true, label: "Cost Basis" },
   { id: "commission", numeric: true, label: "Commission" },
   { id: "averagePrice", numeric: true, label: "Avg Price" },
   { id: "gain", numeric: true, label: "Gain" },
@@ -208,7 +208,7 @@ const EnhancedTable = ({ data, itemType, perPage }) => {
             </Tooltip>
           </TableCell>
           <IntegerRow color="gray">{row.shares}</IntegerRow>
-          <MoneyRow color="gray">{row.costBasics}</MoneyRow>
+          <MoneyRow color="gray">{row.costBasis}</MoneyRow>
           <MoneyRow color="gray">{row.commission}</MoneyRow>
           <MoneyRow color="gray">{row.averagePrice}</MoneyRow>
           <MoneyRow>{row.gain}</MoneyRow>

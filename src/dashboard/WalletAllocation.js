@@ -14,9 +14,9 @@ const WalletAllocation = ({ data }) => {
   const sector = {};
   Object.entries(data.items).forEach(([key, value]) => {
     if (value.itemType in sector) {
-      sector[value.itemType] += value.costBasics;
+      sector[value.itemType] += value.costBasis;
     } else {
-      sector[value.itemType] = value.costBasics;
+      sector[value.itemType] = value.costBasis;
     }
   });
 

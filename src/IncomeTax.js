@@ -77,7 +77,7 @@ const DataTable = ({ items, itemType }) => {
                   {convertToBRLMoney(item.averagePrice)}
                 </TableCell>
                 <TableCell align="right">
-                  {convertToBRLMoney(item.costBasics)}
+                  {convertToBRLMoney(item.costBasis)}
                 </TableCell>
               </TableRow>
             ))}
@@ -92,7 +92,7 @@ const DataTable = ({ items, itemType }) => {
                 <strong>
                   {convertToBRLMoney(
                     items
-                      .map((item) => item.costBasics)
+                      .map((item) => item.costBasis)
                       .reduce((prev, next) => prev + next)
                   )}
                 </strong>
@@ -193,7 +193,7 @@ const IncomeTax = () => {
     if (value.shares < 1) {
       return;
     }
-    total += value.costBasics;
+    total += value.costBasis;
   });
 
   return (
