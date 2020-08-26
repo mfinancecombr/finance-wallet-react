@@ -25,10 +25,10 @@ const useStyles = makeStyles((theme) => ({
 const PortfolioEdit = () => {
   const classes = useStyles();
   const [values, setValues] = useState({});
-  const { id } = useParams();
+  const { slug } = useParams();
 
   const fetchData = () => {
-    MFinanceHttpClient("GET_ONE", { entity: "portfolios", id: id })
+    MFinanceHttpClient("GET_ONE", { entity: "portfolios", slug: slug })
       .then((data) => {
         setValues(data);
       })
@@ -43,6 +43,13 @@ const PortfolioEdit = () => {
 
   const handleUpdateItem = (event) => {
     event.preventDefault();
+
+    // FIXME: Only update name/slug
+    delete values.items;
+    delete values.costBasis;
+    delete values.gain;
+    delete values.overallReturn;
+
     MFinanceHttpClient("UPDATE", { entity: "portfolios", formData: values })
       .then((data) => {
         window.location.href = "/portfolios";

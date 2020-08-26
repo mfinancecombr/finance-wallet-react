@@ -38,8 +38,8 @@ const LotTable = ({ rows, type, handleDeleteItem }) => {
             <TableCell>Commission</TableCell>
             <TableCell>Date</TableCell>
             <TableCell>Type</TableCell>
-            <TableCell>Portfolio ID</TableCell>
-            <TableCell>Broker ID</TableCell>
+            <TableCell>Portfolio</TableCell>
+            <TableCell>Broker</TableCell>
             <TableCell>Total</TableCell>
             <TableCell>Actions</TableCell>
           </TableRow>
@@ -83,10 +83,10 @@ const LotTable = ({ rows, type, handleDeleteItem }) => {
                     {row.itemType}
                   </TableCellWithLink>
                   <TableCellWithLink link={editLink}>
-                    {row.portfolioId}
+                    {row.portfolioSlug}
                   </TableCellWithLink>
                   <TableCellWithLink link={editLink}>
-                    {row.brokerId}
+                    {row.brokerSlug}
                   </TableCellWithLink>
                   <TableCellWithLink link={editLink}>
                     {convertToBRLMoney(row.shares * row.price + row.commission)}

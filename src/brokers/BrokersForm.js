@@ -30,6 +30,21 @@ const BrokersForm = ({ handleSubmit, handleChange, values }) => {
       <Grid item xs={12} md={12} lg={12}>
         <TextField
           fullWidth
+          id="slug"
+          InputLabelProps={{
+            shrink: true,
+          }}
+          label="Slug"
+          onChange={handleChange("slug")}
+          placeholder="clear"
+          required
+          variant="outlined"
+          value={values && values.slug}
+        />
+      </Grid>
+      <Grid item xs={12} md={12} lg={12}>
+        <TextField
+          fullWidth
           id="cnpj"
           InputLabelProps={{
             shrink: true,

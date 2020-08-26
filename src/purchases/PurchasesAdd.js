@@ -24,11 +24,11 @@ const PurchasesAdd = () => {
   const classes = useStyles();
   // FIXME: duplicated
   const [values, setValues] = useState({
-    brokerId: "",
+    brokerSlug: "",
     commission: "",
     date: "",
     itemType: "",
-    portfolioId: "",
+    portfolioSlug: "",
     price: "",
     shares: "",
     symbol: "",

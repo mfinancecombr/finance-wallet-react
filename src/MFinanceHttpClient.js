@@ -37,7 +37,8 @@ const MFinanceHttpClient = (type, payload) => {
     }
     case "GET_ONE": {
       const query = payload.query ? `?${qs.stringify(payload.query)}` : "";
-      const url = `${conf.mfinanceUrl}/${payload.entity}/${payload.id}${query}`;
+      const id = payload.slug ? payload.slug : payload.id;
+      const url = `${conf.mfinanceUrl}/${payload.entity}/${id}${query}`;
       return axios.get(url).then((x) => {
         return x.data;
       });

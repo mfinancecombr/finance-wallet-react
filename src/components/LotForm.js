@@ -43,7 +43,7 @@ const LotForm = ({ id, handleChange, handleSubmit, values }) => {
   const fetchBrokers = () => {
     MFinanceHttpClient("GET_ALL", { entity: "brokers" })
       .then((data) => {
-        setBrokers(data.brokers);
+        setBrokers(data);
       })
       .catch((err) => console.error(err));
   };
@@ -89,20 +89,20 @@ const LotForm = ({ id, handleChange, handleSubmit, values }) => {
         <Grid item xs={12} md={12} lg={12}>
           <TextField
             fullWidth
-            id="portfolioId"
+            id="portfolioSlug"
             InputLabelProps={{
               shrink: true,
             }}
             label="Portfolio"
-            onChange={handleChange("portfolioId")}
+            onChange={handleChange("portfolioSlug")}
             required
             select
-            value={values.portfolioId}
+            value={values.portfolioSlug}
             variant="outlined"
           >
             {portfolios &&
               portfolios.map((option) => (
-                <MenuItem key={option.id} value={option.id}>
+                <MenuItem key={option.slug} value={option.slug}>
                   {option.name}
                 </MenuItem>
               ))}
@@ -137,15 +137,15 @@ const LotForm = ({ id, handleChange, handleSubmit, values }) => {
               shrink: true,
             }}
             label="Broker"
-            onChange={handleChange("brokerId")}
+            onChange={handleChange("brokerSlug")}
             required
             select
-            value={values.brokerId}
+            value={values.brokerSlug}
             variant="outlined"
           >
             {brokers &&
               brokers.map((option) => (
-                <MenuItem key={option.id} value={option.id}>
+                <MenuItem key={option.slug} value={option.slug}>
                   {option.name}
                 </MenuItem>
               ))}

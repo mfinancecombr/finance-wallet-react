@@ -45,7 +45,7 @@ const BrokersTable = ({ rows, handleDeleteItem }) => {
       <Table aria-label="simple table" size="small">
         <TableHead>
           <TableRow>
-            <TableCell>ID</TableCell>
+            <TableCell>Slug</TableCell>
             <TableCell>Name</TableCell>
             <TableCell>Actions</TableCell>
           </TableRow>
@@ -65,11 +65,13 @@ const BrokersTable = ({ rows, handleDeleteItem }) => {
               onCancel: () => setModalOptions({ isOpen: false }),
             };
 
-            const editLink = `/brokers/${row.id}/edit`;
+            const editLink = `/brokers/${row.slug}/edit`;
 
             return (
               <TableRow key={row.name} hover>
-                <TableCellWithLink link={editLink}>{row.id}</TableCellWithLink>
+                <TableCellWithLink link={editLink}>
+                  {row.slug}
+                </TableCellWithLink>
                 <TableCellWithLink link={editLink}>
                   {row.name}
                 </TableCellWithLink>
@@ -108,7 +110,7 @@ const Brokers = () => {
   const [rows, setData] = useState({});
   const fetchData = () => {
     MFinanceHttpClient("GET_ALL", { entity: "brokers" }).then((data) => {
-      setData(data.brokers);
+      setData(data);
     });
   };
   const handleDeleteItem = (id) => {

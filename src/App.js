@@ -179,7 +179,7 @@ const App = () => {
               <Route exact path="/portfolios/add">
                 <PortfoliosAdd />
               </Route>
-              <Route exact path="/portfolios/:id/edit">
+              <Route exact path="/portfolios/:slug/edit">
                 <PortfoliosEdit />
               </Route>
               <Route exact path="/portfolios">
@@ -206,7 +206,7 @@ const App = () => {
               <Route exact path="/brokers/add">
                 <BrokersAdd />
               </Route>
-              <Route exact path="/brokers/:id/edit">
+              <Route exact path="/brokers/:slug/edit">
                 <BrokersEdit />
               </Route>
               <Route exact path="/brokers">

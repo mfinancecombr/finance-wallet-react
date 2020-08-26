@@ -25,10 +25,10 @@ const useStyles = makeStyles((theme) => ({
 const BrokersEdit = () => {
   const classes = useStyles();
   const [values, setValues] = useState({});
-  const { id } = useParams();
+  const { slug } = useParams();
 
   const fetchData = () => {
-    MFinanceHttpClient("GET_ONE", { entity: "brokers", id: id })
+    MFinanceHttpClient("GET_ONE", { entity: "brokers", slug: slug })
       .then((data) => {
         setValues(data);
       })
