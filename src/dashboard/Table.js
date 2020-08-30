@@ -176,18 +176,10 @@ const EnhancedTable = ({ data, itemType, perPage }) => {
     setPage(0);
   };
 
-  var rows = [];
-  for (var item in data.items) {
-    data.items[item].symbol = item;
-    if (data.items[item].itemType === itemType) {
-      rows.push(data.items[item]);
-    }
-  }
-
   const emptyRows =
-    rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
+    rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
 
-  const items = stableSort(rows, getComparator(order, orderBy))
+  const items = stableSort(data, getComparator(order, orderBy))
     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
     .map((row, index) => {
       return (
@@ -236,7 +228,7 @@ const EnhancedTable = ({ data, itemType, perPage }) => {
             order={order}
             orderBy={orderBy}
             onRequestSort={handleRequestSort}
-            rowCount={rows.length}
+            rowCount={data.length}
           />
           <TableBody>
             {items}
@@ -251,7 +243,7 @@ const EnhancedTable = ({ data, itemType, perPage }) => {
       <TablePagination
         rowsPerPageOptions={[10, 20, 30, 50]}
         component="div"
-        count={rows.length}
+        count={data.length}
         rowsPerPage={rowsPerPage}
         page={page}
         onChangePage={handleChangePage}

@@ -46,13 +46,13 @@ const Dashboard = () => {
         setData(data);
       })
       .catch((error) => {
-        if (error.response.status === 404) {
+        if (error.response && error.response.status === 404) {
           setError({
             hasError: true,
             message: `Portfolio '${portfolioID}' not found. Try to add it!`,
           });
         } else {
-          setError({ hasError: true, message: error.response.data });
+          setError({ hasError: true, message: "ooooooooooops" });
         }
       });
   };
@@ -100,19 +100,9 @@ const Dashboard = () => {
         </Paper>
       </Grid>
 
-      {/* Wallet Allocation */}
-      <Grid item xs={12} md={6} lg={4}>
-        <Paper className={classes.paper}>
-          <WalletAllocation data={rows} />
-        </Paper>
-      </Grid>
+      <WalletAllocation data={rows} />
 
-      {/* Stocks Sector */}
-      <Grid item xs={12} md={4} lg={6}>
-        <Paper className={classes.paper}>
-          <StocksSector data={rows} itemType="stocks" />
-        </Paper>
-      </Grid>
+      <StocksSector data={rows} itemType="stocks" />
 
       <DashboardItem
         rows={rows}

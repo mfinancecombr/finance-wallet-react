@@ -19,9 +19,6 @@ const useStyles = makeStyles((theme) => ({
     overflow: "auto",
     flexDirection: "column",
   },
-  fixedHeight: {
-    height: 240,
-  },
 }));
 
 const DashboardItem = ({
@@ -37,23 +34,29 @@ const DashboardItem = ({
   const aLg = performanceHeight ? 6 : 4;
   const pLg = performanceHeight ? 12 : 8;
 
+  if (!rows.items.hasOwnProperty(itemType)) {
+    return null;
+  }
+
+  const data = rows.items[itemType];
+
   return (
     <React.Fragment>
       <Grid item xs={12} md={6} lg={aLg}>
         <Paper className={classes.paper}>
-          <Allocation data={rows} itemType={itemType} height={aHeight} />
+          <Allocation data={data} itemType={itemType} height={aHeight} />
         </Paper>
       </Grid>
 
       <Grid item xs={12} md={6} lg={pLg}>
         <Paper className={classes.paper}>
-          <PerformanceChart data={rows} itemType={itemType} height={pHeight} />
+          <PerformanceChart data={data} itemType={itemType} height={pHeight} />
         </Paper>
       </Grid>
 
       <Grid item xs={12}>
         <Paper className={classes.paper}>
-          <WalletItems data={rows} itemType={itemType} />
+          <WalletItems data={data} itemType={itemType} />
         </Paper>
       </Grid>
     </React.Fragment>

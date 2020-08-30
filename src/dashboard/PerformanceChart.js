@@ -24,11 +24,8 @@ import { chartColors } from "../chartColors";
 import { convertIdToTitle } from "../convertTypeIdToTitle";
 
 const Performance = ({ data, itemType, height }) => {
-  const items = [];
-  Object.entries(data.items).forEach(([key, value]) => {
-    if (itemType === value.itemType) {
-      items.push({ name: key, [key]: value.gain });
-    }
+  const items = data.map((item) => {
+    return { name: item.symbol, [item.symbol]: item.gain };
   });
 
   return (

@@ -11,12 +11,9 @@ import Title from "./Title";
 import { convertIdToTitle } from "../convertTypeIdToTitle";
 
 const Allocation = ({ data, itemType, height, isMoney }) => {
-  const items = [];
-  Object.entries(data.items).forEach(([key, value]) => {
-    if (itemType === value.itemType) {
-      const total = value.costBasis + value.gain;
-      items.push({ name: key, value: total });
-    }
+  const items = data.map((item) => {
+    const total = item.costBasis + item.gain;
+    return { name: item.symbol, value: total };
   });
 
   return (
