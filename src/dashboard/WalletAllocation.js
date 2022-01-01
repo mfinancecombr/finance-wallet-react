@@ -28,15 +28,16 @@ const WalletAllocation = ({ data }) => {
     return null;
   }
 
-  const items = [];
-  Object.entries(data.items).forEach(([itemType, values]) => {
-    const value = values
-      .map((o) => o.costBasis)
-      .reduce((a, c) => {
-        return a + c;
-      });
-    items.push({ name: convertIdToTitle(itemType), value: value });
+  const costBasicsByType = {};
+  Object.entries(data.items).forEach(([ticker, value]) => {
+    costBasicsByType[convertIdToTitle(value.itemType)] =
+      (costBasicsByType[convertIdToTitle(value.itemType)] || 0) +
+      value.costBasis;
   });
+  const items = Object.entries(costBasicsByType).map(([type, value]) => ({
+    name: convertIdToTitle(type),
+    value: value,
+  }));
 
   return (
     <Grid item xs={12} md={6} lg={4}>

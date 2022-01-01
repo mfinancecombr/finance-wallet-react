@@ -45,7 +45,7 @@ const PortfoliosTable = ({ rows, handleDeleteItem }) => {
       <Table aria-label="simple table" size="small">
         <TableHead>
           <TableRow>
-            <TableCell>Slug</TableCell>
+            <TableCell>Id</TableCell>
             <TableCell>Name</TableCell>
             <TableCell>Actions</TableCell>
           </TableRow>
@@ -65,13 +65,11 @@ const PortfoliosTable = ({ rows, handleDeleteItem }) => {
               onCancel: () => setModalOptions({ isOpen: false }),
             };
 
-            const editLink = `/portfolios/${row.slug}/edit`;
+            const editLink = `/portfolios/${row.id}/edit`;
 
             return (
               <TableRow key={row.id} hover>
-                <TableCellWithLink link={editLink}>
-                  {row.slug}
-                </TableCellWithLink>
+                <TableCellWithLink link={editLink}>{row.id}</TableCellWithLink>
                 <TableCellWithLink link={editLink}>
                   {row.name}
                 </TableCellWithLink>
