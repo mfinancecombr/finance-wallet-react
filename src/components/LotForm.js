@@ -18,11 +18,13 @@ import Form from "./Form";
 import MFinanceHttpClient from "../MFinanceHttpClient";
 
 const LotForm = ({ id, handleChange, handleSubmit, values }) => {
-  const today =
-    values && values.date ? values.date : moment().utc().format("YYYY-MM-DD");
+  const [portfolios, setPortfolios] = useState([]);
+  const [brokers, setBrokers] = useState([]);
+  const today = (values && values.date) || moment().utc().format("YYYY-MM-DD");
   const [selectedDate, setSelectedDate] = React.useState(
     moment(today).utc().format("YYYY-MM-DD")
   );
+
   const handleDateChange = (date) => {
     if (!date) {
       return "";
@@ -31,8 +33,7 @@ const LotForm = ({ id, handleChange, handleSubmit, values }) => {
     handleChange("date")({ target: { value: value } });
     setSelectedDate(value);
   };
-  const [portfolios, setPortfolios] = useState([]);
-  const [brokers, setBrokers] = useState([]);
+
   const fetchPortfolios = () => {
     MFinanceHttpClient("GET_ALL", { entity: "portfolios" })
       .then((data) => {
@@ -53,6 +54,7 @@ const LotForm = ({ id, handleChange, handleSubmit, values }) => {
     handleChange("date")({ target: { value: today } });
     fetchPortfolios();
     fetchBrokers();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   //FIXME: duplicated

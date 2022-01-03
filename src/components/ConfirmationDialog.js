@@ -20,14 +20,7 @@ import ModalStateContext from "./ModalStateContext";
 const ConfirmationDialog = () => {
   const {
     isOpen,
-    modalProps: {
-      context,
-      title,
-      message,
-      onConfirm,
-      onCancel,
-      onBackdropClick,
-    },
+    modalProps: { context, title, message, onConfirm, onCancel, onClose },
   } = useContext(ModalStateContext);
 
   return (
@@ -35,7 +28,7 @@ const ConfirmationDialog = () => {
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
       open={isOpen}
-      onBackdropClick={(e) => onBackdropClick(e, context)}
+      onClose={(e) => onClose(e, context)}
     >
       <DialogTitle id="alert-dialog-title">{title}</DialogTitle>
       <DialogContent>

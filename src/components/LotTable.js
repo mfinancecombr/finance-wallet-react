@@ -56,7 +56,7 @@ const LotTable = ({ rows, type, handleDeleteItem }) => {
                   handleDeleteItem(context);
                   setModalOptions({ isOpen: false });
                 },
-                onBackdropClick: () => setModalOptions({ isOpen: false }),
+                onClose: () => setModalOptions({ isOpen: false }),
                 onCancel: () => setModalOptions({ isOpen: false }),
               };
 

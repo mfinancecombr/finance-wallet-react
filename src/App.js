@@ -5,7 +5,7 @@
  */
 
 import React from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 import {
@@ -174,52 +174,40 @@ const App = () => {
         </Drawer>
         <main className={classes.content}>
           <div className={classes.appBarSpacer} />
-          <Container maxWidth="xg" className={classes.container}>
-            <Switch>
-              <Route exact path="/portfolios/add">
-                <PortfoliosAdd />
-              </Route>
-              <Route exact path="/portfolios/:slug/edit">
-                <PortfoliosEdit />
-              </Route>
-              <Route exact path="/portfolios">
-                <Portfolios />
-              </Route>
-              <Route exact path="/:itemType/sales/:id/edit">
-                <SalesEdit />
-              </Route>
-              <Route exact path="/sales/add">
-                <SalesAdd />
-              </Route>
-              <Route exact path="/sales">
-                <Sales />
-              </Route>
-              <Route exact path="/purchases/add">
-                <PurchasesAdd />
-              </Route>
-              <Route exact path="/:itemType/purchases/:id/edit">
-                <PurchasesEdit />
-              </Route>
-              <Route exact path="/purchases">
-                <Purchases />
-              </Route>
-              <Route exact path="/brokers/add">
-                <BrokersAdd />
-              </Route>
-              <Route exact path="/brokers/:slug/edit">
-                <BrokersEdit />
-              </Route>
-              <Route exact path="/brokers">
-                <Brokers />
-              </Route>
-              <Route exact path="/income-tax">
-                <IncomeTax />
-              </Route>
-              <Route exact path="/">
-                <Dashboard />
-              </Route>
-              <Route path={"*"} component={NotFound} />
-            </Switch>
+          <Container maxWidth="lg" className={classes.container}>
+            <Routes>
+              <Route exact path="/portfolios/add" element={<PortfoliosAdd />} />
+              <Route
+                exact
+                path="/portfolios/:slug/edit"
+                element={<PortfoliosEdit />}
+              />
+              <Route exact path="/portfolios" element={<Portfolios />} />
+              <Route
+                exact
+                path="/:itemType/sales/:id/edit"
+                element={<SalesEdit />}
+              />
+              <Route exact path="/sales/add" element={<SalesAdd />} />
+              <Route exact path="/sales" element={<Sales />} />
+              <Route exact path="/purchases/add" element={<PurchasesAdd />} />
+              <Route
+                exact
+                path="/:itemType/purchases/:id/edit"
+                element={<PurchasesEdit />}
+              />
+              <Route exact path="/purchases" element={<Purchases />} />
+              <Route exact path="/brokers/add" element={<BrokersAdd />} />
+              <Route
+                exact
+                path="/brokers/:slug/edit"
+                element={<BrokersEdit />}
+              />
+              <Route exact path="/brokers" element={<Brokers />} />
+              <Route exact path="/income-tax" element={<IncomeTax />} />
+              <Route exact path="/" element={<Dashboard />} />
+              <Route path={"*"} element={NotFound} />
+            </Routes>
           </Container>
         </main>
       </div>

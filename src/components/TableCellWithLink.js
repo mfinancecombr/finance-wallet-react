@@ -5,7 +5,7 @@
  */
 
 import React from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import { TableCell } from "@material-ui/core";
 
@@ -17,9 +17,9 @@ const useStyles = makeStyles((theme) => ({
 
 const TableCellWithLink = ({ children, link }) => {
   const classes = useStyles();
-  let history = useHistory();
+  let navigate = useNavigate();
   return (
-    <TableCell className={classes.rowLink} onClick={() => history.push(link)}>
+    <TableCell className={classes.rowLink} onClick={() => navigate(link)}>
       {children}
     </TableCell>
   );
