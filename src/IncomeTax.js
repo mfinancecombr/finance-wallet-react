@@ -107,18 +107,19 @@ const DataTable = ({ items, itemType }) => {
 
 const Data = ({ rows }) => {
   const byType = {};
-  Object.entries(rows.items).forEach(([key, value]) => {
-    if (value.shares < 1) {
-      return;
-    }
-    value.symbol = key;
-    if (value.itemType in byType) {
-      byType[value.itemType].push(value);
-    } else {
-      byType[value.itemType] = [value];
-    }
-  });
-
+  console.log(rows.items);
+  Object.entries(rows.items)
+    .map(([_, value]) => value)
+    .flat()
+    .filter((asset) => asset.shares >= 1)
+    .forEach((asset) => {
+      console.log(asset);
+      if (asset.itemType in byType === false) {
+        byType[asset.itemType] = [];
+      }
+      byType[asset.itemType].push(asset);
+    });
+  console.log(byType);
   return (
     <div>
       {Object.entries(byType).map(([key, value]) => {
@@ -133,19 +134,15 @@ const IncomeTax = () => {
   const currentYear = currentDate.getFullYear();
   const [year, setYear] = React.useState(currentYear - 1);
   const [error, setError] = useState({ hasError: false, message: "" });
+  const [isLoading, setLoading] = useState(true);
+  const [portfolio, setPortfolio] = useState({});
 
-  const handleChange = (event) => {
-    const year = event.target.value;
-    setYear(year);
-    fetchPortfolio(year);
-  };
+  const handleChange = (event) => setYear(event.target.value);
 
   const classes = useStyles();
 
-  const [portfolio, setPortfolio] = useState({});
-
-  // FIXME called twice on init
-  const fetchPortfolio = (year) => {
+  const fetchPortfolio = async (year) => {
+    setLoading(true);
     // FIXME
     const portfolioID = "default";
     const payload = {
@@ -153,20 +150,21 @@ const IncomeTax = () => {
       id: portfolioID,
       query: { year: year },
     };
-    MFinanceHttpClient("GET_ONE", payload)
-      .then((data) => {
-        setPortfolio(data);
-      })
-      .catch((error) => {
-        if (error.response.status === 404) {
-          setError({
-            hasError: true,
-            message: `Portfolio '${portfolioID}' not found. Try to add it!`,
-          });
-        } else {
-          setError({ hasError: true, message: error.response.data });
-        }
-      });
+    try {
+      const portfolio = await MFinanceHttpClient("GET_ONE", payload);
+      setPortfolio(portfolio);
+    } catch (error) {
+      if (error.response.status === 404) {
+        setError({
+          hasError: true,
+          message: `Portfolio '${portfolioID}' not found. Try to add it!`,
+        });
+      } else {
+        setError({ hasError: true, message: error.response.data });
+      }
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -182,19 +180,19 @@ const IncomeTax = () => {
     );
   }
 
+  debugger;
+
   // FIXME
-  if (portfolio.constructor === Object && Object.keys(portfolio).length === 0) {
+  if (isLoading) {
     return <Loading />;
   }
 
-  // FIXME
-  let total = 0;
-  Object.entries(portfolio.items).forEach(([key, value]) => {
-    if (value.shares < 1) {
-      return;
-    }
-    total += value.costBasis;
-  });
+  const total =
+    Object.entries(portfolio.items)
+      .map(([_, value]) => value)
+      .flat()
+      .filter((asset) => asset.shares >= 1)
+      .reduce((prev, curr) => prev + curr.costBasis, 0) || 0;
 
   return (
     <Paper className={classes.paper}>
@@ -210,7 +208,7 @@ const IncomeTax = () => {
           onChange={handleChange}
           label="Year"
         >
-          {[...Array(6)].map((e, i) => {
+          {[...Array(new Date().getFullYear() - 2014)].map((e, i) => {
             const year = 2015 + i;
             return (
               <MenuItem key={year} value={year}>
