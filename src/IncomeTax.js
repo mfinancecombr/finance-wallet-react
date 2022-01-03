@@ -107,19 +107,16 @@ const DataTable = ({ items, itemType }) => {
 
 const Data = ({ rows }) => {
   const byType = {};
-  console.log(rows.items);
   Object.entries(rows.items)
     .map(([_, value]) => value)
     .flat()
     .filter((asset) => asset.shares >= 1)
     .forEach((asset) => {
-      console.log(asset);
       if (asset.itemType in byType === false) {
         byType[asset.itemType] = [];
       }
       byType[asset.itemType].push(asset);
     });
-  console.log(byType);
   return (
     <div>
       {Object.entries(byType).map(([key, value]) => {
@@ -143,7 +140,7 @@ const IncomeTax = () => {
 
   const fetchPortfolio = async (year) => {
     setLoading(true);
-    // FIXME
+    // FIXME Find a way to avoid fetching all portfolio data (removing items/costBasis/gain...). We only need a set of portfolio names.
     const portfolioID = "default";
     const payload = {
       entity: "portfolios",
@@ -180,9 +177,6 @@ const IncomeTax = () => {
     );
   }
 
-  debugger;
-
-  // FIXME
   if (isLoading) {
     return <Loading />;
   }
