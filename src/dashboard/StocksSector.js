@@ -48,7 +48,7 @@ const StocksSector = ({ data, itemType }) => {
   });
 
   return (
-    <Grid item xs={12} md={4} lg={6}>
+    <Grid item xs={12} md={6} lg={6}>
       <Paper className={classes.paper}>
         <Title>{convertIdToTitle(itemType)} Sector</Title>
         <div style={{ width: "100%", height: 280 }}>
