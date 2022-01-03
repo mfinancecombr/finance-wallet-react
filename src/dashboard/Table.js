@@ -75,6 +75,7 @@ const EnhancedTableHead = (props) => {
       <TableRow>
         {headCells.map((headCell) => (
           <TableCell
+            className={classes.tableCellHead}
             key={headCell.id}
             sortDirection={orderBy === headCell.id ? order : false}
           >
@@ -82,6 +83,7 @@ const EnhancedTableHead = (props) => {
               active={orderBy === headCell.id}
               direction={orderBy === headCell.id ? order : "asc"}
               onClick={createSortHandler(headCell.id)}
+              style={{ whiteSpace: "nowrap" }}
             >
               {headCell.label}
               {orderBy === headCell.id ? (
@@ -118,9 +120,25 @@ const useStyles = makeStyles((theme) => ({
     width: 1,
   },
   container: {},
+  tableCell: {
+    borderRight: "solid 1px #CCC",
+    padding: "3px 10px",
+    "&:first-of-type": {
+      borderLeft: "solid 1px #CCC",
+    },
+  },
+  tableCellHead: {
+    borderTop: "solid 1px #CCC",
+    borderRight: "solid 1px #CCC",
+    padding: "3px 10px",
+    "&:first-of-type": {
+      borderLeft: "solid 1px #CCC",
+    },
+  },
 }));
 
 const GenericRow = ({ children, color, type }) => {
+  const classes = useStyles();
   color = color ? color : parseFloat(children, 10) > 0 ? "green" : "red";
   switch (type) {
     case "money":
@@ -132,8 +150,10 @@ const GenericRow = ({ children, color, type }) => {
     default:
   }
   return (
-    <TableCell>
-      <span style={{ color: color, fontWeight: 700 }}>{children}</span>
+    <TableCell className={classes.tableCell}>
+      <span style={{ color: color, fontWeight: 700, whiteSpace: "nowrap" }}>
+        {children}
+      </span>
     </TableCell>
   );
 };
@@ -194,9 +214,11 @@ const EnhancedTable = ({ data, itemType, perPage }) => {
               : { backgroundColor: "" }
           }
         >
-          <TableCell>
+          <TableCell className={classes.tableCell}>
             <Tooltip title={row.name}>
-              <span style={{ fontWeight: 700 }}>{row.symbol}</span>
+              <span style={{ fontWeight: 700, whiteSpace: "nowrap" }}>
+                {row.symbol}
+              </span>
             </Tooltip>
           </TableCell>
           <IntegerRow color="gray">{row.shares}</IntegerRow>
@@ -217,12 +239,7 @@ const EnhancedTable = ({ data, itemType, perPage }) => {
   return (
     <div className={classes.root}>
       <TableContainer className={classes.container}>
-        <Table
-          stickyHeader
-          aria-label="sticky table"
-          className={classes.table}
-          padding="none"
-        >
+        <Table stickyHeader aria-label="sticky table" className={classes.table}>
           <EnhancedTableHead
             classes={classes}
             order={order}
