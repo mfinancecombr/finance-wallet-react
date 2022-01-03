@@ -5,7 +5,11 @@
  */
 
 export const convertToBRLMoney = (num) => {
-  num = parseFloat(num.toFixed(2));
+  try {
+    num = parseFloat(num.toFixed(2));
+  } catch {
+    num = 0.0;
+  }
   return num.toLocaleString("pt-br", {
     style: "currency",
     currency: "BRL",
