@@ -174,7 +174,7 @@ const App = () => {
         </Drawer>
         <main className={classes.content}>
           <div className={classes.appBarSpacer} />
-          <Container maxWidth="lg" className={classes.container}>
+          <Container maxWidth="xg" className={classes.container}>
             <Switch>
               <Route exact path="/portfolios/add">
                 <PortfoliosAdd />
