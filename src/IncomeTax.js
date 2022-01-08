@@ -110,7 +110,6 @@ const Data = ({ rows }) => {
   Object.entries(rows.items)
     .map(([_, value]) => value)
     .flat()
-    .filter((asset) => asset.shares >= 1)
     .forEach((asset) => {
       if (asset.itemType in byType === false) {
         byType[asset.itemType] = [];
