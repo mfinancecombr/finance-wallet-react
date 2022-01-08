@@ -140,7 +140,8 @@ const IncomeTax = () => {
 
   const fetchPortfolio = async (year) => {
     setLoading(true);
-    // FIXME Find a way to avoid fetching all portfolio data (removing items/costBasis/gain...). We only need a set of portfolio names.
+    // FIXME: Find a way to avoid fetching all portfolio data (removing
+    // items/costBasis/gain...). We only need a set of portfolio names.
     const portfolioID = "default";
     const payload = {
       entity: "portfolios",
