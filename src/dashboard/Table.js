@@ -122,18 +122,20 @@ const useStyles = makeStyles((theme) => ({
   container: {},
   tableCell: {
     borderRight: "solid 1px #CCC",
-    padding: "3px 10px",
+    padding: 3,
     "&:first-of-type": {
       borderLeft: "solid 1px #CCC",
     },
+    textAlign: "right",
   },
   tableCellHead: {
     borderTop: "solid 1px #CCC",
     borderRight: "solid 1px #CCC",
-    padding: "3px 10px",
+    padding: 3,
     "&:first-of-type": {
       borderLeft: "solid 1px #CCC",
     },
+    textAlign: "center",
   },
 }));
 
