@@ -65,7 +65,7 @@ const PortfoliosTable = ({ rows, handleDeleteItem }) => {
               onCancel: () => setModalOptions({ isOpen: false }),
             };
 
-            const editLink = `/portfolios/${row.id}/edit`;
+            const editLink = `/portfolios/${row.slug}/edit`;
 
             return (
               <TableRow key={row.id} hover>
